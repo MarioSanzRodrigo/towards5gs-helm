@@ -12,7 +12,7 @@
 #
 apiVersion: v2
 name: free5gc-amf
-description: A Helm chart to deploy the Free5GC AMF
+description: MARIO A Helm chart to deploy the Free5GC AMF
 type: application
 version: 0.2.3
 appVersion: "v3.2.0"
