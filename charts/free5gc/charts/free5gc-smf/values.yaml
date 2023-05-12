@@ -32,7 +32,9 @@ global:
     n4if:
       ipAddress: 10.100.50.244
   n4network:
+    enabled: true
     name: n4network
+    type: ipvlan
     masterIf: eth0
     subnetIP: 10.100.50.240
     cidr: 29
@@ -48,15 +50,8 @@ initcontainers:
     image: busybox
     tag: "1.32.0"
 
-# This section can be used to override the default values in the MongoDB chart (remember MongoDB is a subchart of the free5gcControlplane chart since control plane NFs rely on it. 
-mongodb:
-  service:
-    name: mongodb
-    type: ClusterIP
-    port: 27017
-    nodePort: "30017"
-
 isPfcpNeeded: true
+
 smf:
   name: smf
   replicaCount: 1
@@ -64,13 +59,9 @@ smf:
     name: towards5gs/free5gc-smf
     pullPolicy: Always
   service:
-    name: smf-nsmf
     type: ClusterIP
     port: 80
-  configmap:
-    name: smf-configmap
   volume:
-    name: smf-volume
     mount: /free5gc/config/
   podAnnotations: {}
     # additional annotations
@@ -78,9 +69,6 @@ smf:
   podSecurityContext: {}
   securityContext: {}
   resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
     requests:
       cpu: 100m
       memory: 128Mi
@@ -141,10 +129,10 @@ smf:
                 ipv4: 8.8.8.8
         - sNssai:
             sst: 2
-            sd: 112234    
+            sd: 112234
           dnnInfos:
             - dnn: internet
-              dns: 
+              dns:
                 ipv4: 8.8.8.8
       plmnList: # the list of PLMN IDs that this SMF belongs to (optional, remove this key when unnecessary)
         - mcc: "208" # Mobile Country Code (3 digits string, digit: 0~9)
@@ -170,7 +158,7 @@ smf:
                     dnnUpfInfoList: # DNN information list for this S-NSSAI
                       - dnn: internet
                         pools:
-                          - cidr: 10.1.128.0/17 
+                          - cidr: 10.1.128.0/17
             interfaces: # Interface list for this UPF
                   - interfaceType: N3 # the type of the interface (N3 or N9)
                     endpoints: # the IP address of this N3/N9 interface on this UPF
@@ -180,7 +168,7 @@ smf:
           - A: gNB1
             B: UPF
       locality: area1 # Name of the location where a set of AMF, SMF and UPFs are located
-    
+
     ueRoutingInfo: |-
       UE1: # Group Name
         members:

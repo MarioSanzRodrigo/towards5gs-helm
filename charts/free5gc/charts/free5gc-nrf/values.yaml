@@ -39,7 +39,7 @@ initcontainers:
 
 db:
   enabled: true
-# This section can be used to override the default values in the MongoDB chart (remember MongoDB is a subchart of the free5gcControlplane chart since control plane NFs rely on it. 
+# This section can be used to override the default values in the MongoDB chart (remember MongoDB is a subchart of the free5gcControlplane chart since control plane NFs rely on it.
 mongodb:
   fullnameOverride: "mongodb"
   useStatefulSet: true
@@ -60,10 +60,7 @@ nrf:
   image:
     name: towards5gs/free5gc-nrf
     pullPolicy: Always
-  configmap:
-    name: nrf-configmap
   volume:
-    name: nrf-volume
     mount: /free5gc/config/
   podAnnotations: {}
     # additional annotations
@@ -71,9 +68,6 @@ nrf:
   podSecurityContext: {}
   securityContext: {}
   resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
     requests:
       cpu: 100m
       memory: 128Mi

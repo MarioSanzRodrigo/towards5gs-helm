@@ -37,14 +37,6 @@ initcontainers:
     image: busybox
     tag: "1.32.0"
 
-# This section can be used to override the default values in the MongoDB chart (remember MongoDB is a subchart of the free5gcControlplane chart since control plane NFs rely on it. 
-mongodb:
-  service:
-    name: mongodb
-    type: ClusterIP
-    port: 27017
-    nodePort: "30017"
-
 nssf:
   name: nssf
   replicaCount: 1
@@ -52,13 +44,9 @@ nssf:
     name: towards5gs/free5gc-nssf
     pullPolicy: Always
   service:
-    name: nssf-nnssf
     type: ClusterIP
     port: 80
-  configmap:
-    name: nssf-configmap
   volume:
-    name: nssf-volume
     mount: /free5gc/config/
   podAnnotations: {}
     # additional annotations
@@ -66,9 +54,6 @@ nssf:
   podSecurityContext: {}
   securityContext: {}
   resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
     requests:
       cpu: 100m
       memory: 128Mi
@@ -105,7 +90,7 @@ nssf:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
-  configuration: 
+  configuration:
     serviceNameList: |-
       - nnssf-nsselection
       - nnssf-nssaiavailability
@@ -317,7 +302,7 @@ nssf:
                 sd: 2
               homeSnssai:
                 sst: 1
-                sd: 3      
+                sd: 3
     # the kind of log output
       # debugLevel: how detailed to output, value: trace, debug, info, warn, error, fatal, panic
       # ReportCaller: enable the caller report or not, value: true or false
