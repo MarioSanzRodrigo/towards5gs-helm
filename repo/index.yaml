@@ -724,7 +724,7 @@ entries:
       name: Ilhem FAJJARI
     - email: ayoub.bousselmi@orange.com
       name: Ayoub BOUSSELMI
-    name: mongodb-10.7.0
+    name: mongodb
     type: application
     urls:
     - mongodb-10.7.0.tgz
